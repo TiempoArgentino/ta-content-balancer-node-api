@@ -22,20 +22,26 @@ var _Post = _interopRequireDefault(require("../models/Post"));
 /* *************************************************** */
 var createPost = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, title, url, authors, category, imgURL, newPost, postSaved;
+    var _req$body, postId, title, url, headband, imgURL, isOpinion, section, authors, tags, themes, places, newPost, postSaved;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, title = _req$body.title, url = _req$body.url, authors = _req$body.authors, category = _req$body.category, imgURL = _req$body.imgURL;
+            _req$body = req.body, postId = _req$body.postId, title = _req$body.title, url = _req$body.url, headband = _req$body.headband, imgURL = _req$body.imgURL, isOpinion = _req$body.isOpinion, section = _req$body.section, authors = _req$body.authors, tags = _req$body.tags, themes = _req$body.themes, places = _req$body.places;
             console.log(req.body);
             newPost = new _Post["default"]({
+              postId: postId,
               title: title,
               url: url,
+              headband: headband,
+              imgURL: imgURL,
+              isOpinion: isOpinion,
+              section: section,
               authors: authors,
-              category: category,
-              imgURL: imgURL
+              tags: tags,
+              themes: themes,
+              places: places
             });
             _context.next = 5;
             return newPost.save();

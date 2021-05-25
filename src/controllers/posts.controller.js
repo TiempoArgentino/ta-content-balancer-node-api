@@ -5,9 +5,33 @@ import Post from "../models/Post";
 /* *************************************************** */
 /* *************************************************** */
 export const createPost = async (req, res) => {
-  const { title, url, authors, category, imgURL } = req.body;
+  const {
+    postId,
+    title,
+    url,
+    headband,
+    imgURL,
+    isOpinion,
+    section,
+    authors,
+    tags,
+    themes,
+    places,
+  } = req.body;
   console.log(req.body);
-  const newPost = new Post({ title, url, authors, category, imgURL });
+  const newPost = new Post({
+    postId,
+    title,
+    url,
+    headband,
+    imgURL,
+    isOpinion,
+    section,
+    authors,
+    tags,
+    themes,
+    places,
+  });
   const postSaved = await newPost.save();
   res.status(201).json(postSaved);
 };

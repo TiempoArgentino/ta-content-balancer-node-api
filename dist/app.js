@@ -23,7 +23,7 @@ var _users = _interopRequireDefault(require("./routes/users.routes"));
 
 var app = (0, _express["default"])(); //settings
 
-app.set("port", process.env.PORT || 3001); //delete for tiempo arg
+app.set("port", process.env.PORT || 3002); //delete for tiempo arg
 
 (0, _initialSetup.createRoles)(); //middlewares
 

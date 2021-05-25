@@ -10,7 +10,7 @@ import userRoutes from "./routes/users.routes";
 const app = express();
 
 //settings
-app.set("port", process.env.PORT || 3001);
+app.set("port", process.env.PORT || 3002);
 
 //delete for tiempo arg
 createRoles();

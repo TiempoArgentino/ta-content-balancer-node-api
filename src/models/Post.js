@@ -2,6 +2,11 @@ import { Schema, model } from "mongoose";
 
 const postSchema = new Schema(
   {
+    postId: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
     title: {
       type: String,
       required: true,
@@ -12,19 +17,40 @@ const postSchema = new Schema(
       required: true,
       trim: true,
     },
+    headband: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    imgURL: String,
+    isOpinion: {
+      type: Boolean,
+      required: true,
+    },
+    section: Number,
     authors: [
       {
         authorId: Number,
         authorName: String,
+        authorUrl: String,
+        authorImage: String,
       },
     ],
-    category: [
+    tags: [
       {
-        categoryId: Number,
-        categoryName: String,
+        tagsId: Number,
       },
     ],
-    imgURL: String,
+    themes: [
+      {
+        themeId: Number,
+      },
+    ],
+    places: [
+      {
+        placeId: Number,
+      },
+    ],
   },
   {
     timestamps: true,

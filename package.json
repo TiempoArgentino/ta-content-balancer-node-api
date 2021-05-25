@@ -1,5 +1,5 @@
 {
-  "name": "rest-api-auth",
+  "name": "ta-content-balancer-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "start": "node dist/index.js"
   },
   "keywords": [],
-  "author": "Manu Paiva",
+  "author": "Manu Paiva - Genosha",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
