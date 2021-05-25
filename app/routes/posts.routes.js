@@ -1,26 +1,28 @@
-import { Router } from "express";
+"use strict";
 
-const router = Router();
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
 
-import * as postsCtrl from "../controllers/posts.controller";
-import { authJwt } from "../middlewares";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
+var _express = require("express");
+
+var postsCtrl = _interopRequireWildcard(require("../controllers/posts.controller"));
+
+var _middlewares = require("../middlewares");
+
+var router = (0, _express.Router)();
 //POST ITEM
-router.post("/", [authJwt.verifyToken, authJwt.isAdmin], postsCtrl.createPost);
-//GET ALL ITEMS
-router.get("/", postsCtrl.getPosts);
+router.post("/", [_middlewares.authJwt.verifyToken, _middlewares.authJwt.isAdmin], postsCtrl.createPost); //GET ALL ITEMS
 
-//GET ITEM BY ID
-router.get("/:postId", postsCtrl.getPostById);
+router.get("/", postsCtrl.getPosts); //GET ITEM BY ID
 
-//PUT ITEM BY ID
-router.put("/:postId", authJwt.verifyToken, postsCtrl.updatePostById);
+router.get("/:postId", postsCtrl.getPostById); //PUT ITEM BY ID
 
-//DELETE ITEM BY ID
-router.delete(
-  "/:postId",
-  [authJwt.verifyToken, authJwt.isAdmin],
-  postsCtrl.deletePostById
-);
+router.put("/:postId", _middlewares.authJwt.verifyToken, postsCtrl.updatePostById); //DELETE ITEM BY ID
 
-export default router;
+router["delete"]("/:postId", [_middlewares.authJwt.verifyToken, _middlewares.authJwt.isAdmin], postsCtrl.deletePostById);
+var _default = router;
+exports["default"] = _default;
