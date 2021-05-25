@@ -1,19 +1,12 @@
-"use strict";
+import { Router } from "express";
+const router = Router();
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+import * as userCtrl from "../controllers/user.controller";
+import { authJwt, verifySignup } from "../middlewares";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _express = require("express");
-
-var userCtrl = _interopRequireWildcard(require("../controllers/user.controller"));
-
-var _middlewares = require("../middlewares");
-
-var router = (0, _express.Router)();
-router.post("/", [_middlewares.authJwt.verifyToken, _middlewares.authJwt.isAdmin, _middlewares.verifySignup.checkRolesExisted], userCtrl.createUser);
-var _default = router;
-exports["default"] = _default;
+router.post(
+  "/",
+  [authJwt.verifyToken, authJwt.isAdmin, verifySignup.checkRolesExisted],
+  userCtrl.createUser
+);
+export default router;
