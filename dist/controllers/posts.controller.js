@@ -145,7 +145,9 @@ var updatePostById = /*#__PURE__*/function () {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return _Post["default"].findOneAndUpdate(req.params.postId, req.body, {
+            return _Post["default"].findOneAndUpdate({
+              _id: req.params.postId
+            }, req.body, {
               "new": true
             });
 

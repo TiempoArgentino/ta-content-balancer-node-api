@@ -55,9 +55,16 @@ export const getPostById = async (req, res) => {
 /* *************************************************** */
 /* *************************************************** */
 export const updatePostById = async (req, res) => {
-  const updatedPost = await Post.findOneAndUpdate(req.params.postId, req.body, {
-    new: true,
-  });
+  // const post = await Post.findById(req.params.postIda);
+  // res.status(200).json(post);
+
+  const updatedPost = await Post.findOneAndUpdate(
+    { _id: req.params.postId },
+    req.body,
+    {
+      new: true,
+    }
+  );
   res.status(200).json(updatedPost);
 };
 
