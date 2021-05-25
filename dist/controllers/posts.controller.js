@@ -13,9 +13,9 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _mongoose = require("mongoose");
 
-var _nodemon = require("nodemon");
-
 var _Post = _interopRequireDefault(require("../models/Post"));
+
+// import { reset } from "nodemon";
 
 /* *************************************************** */
 
