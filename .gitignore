@@ -1,2 +1,5 @@
 #environment variables
 .env
+node_modules
+npm-debug.loh
+

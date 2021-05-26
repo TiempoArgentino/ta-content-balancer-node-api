@@ -1,0 +1,23 @@
+name: docker-build
+
+on:
+  push:
+    branches: [ master, dev ]
+  
+jobs:
+  docker-build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build container dev
+      run: echo docker build -t ta/content-balancer:${GITHUB_REF##*/} .
+      if: contains('refs/heads/dev',github.ref)
+    - name: Build container prod
+      run: echo docker build ta/content-balancer:${GITHUB_REF##*/} .
+      if: contains('refs/heads/master',github.ref)
+    - name: Reload containers
+      run: echo docker-compose up -d
+
+
