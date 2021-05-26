@@ -144,6 +144,7 @@ export const deletePostById = async (req, res) => {
 };
 /* *************************************************** */
 /* *************************************************** */
+/* *************************************************** */
 export const deleteAllPosts = async (req, res) => {
   try {
     await Post.deleteMany();
