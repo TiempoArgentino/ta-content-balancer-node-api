@@ -10,6 +10,9 @@ router.post("/", [authJwt.verifyToken, authJwt.isAdmin], postsCtrl.createPost);
 //GET ALL ITEMS
 router.get("/", postsCtrl.getPosts);
 
+//GET ITEMS WITH MULTIPLE CRITERIA
+router.get("/personalized", postsCtrl.getPostsWithCriteria);
+
 //GET ITEM BY ID
 router.get("/:postId", postsCtrl.getPostById);
 
@@ -21,6 +24,11 @@ router.delete(
   "/:postId",
   [authJwt.verifyToken, authJwt.isAdmin],
   postsCtrl.deletePostById
+);
+router.delete(
+  "/",
+  [authJwt.verifyToken, authJwt.isAdmin],
+  postsCtrl.deleteAllPosts
 );
 
 export default router;
