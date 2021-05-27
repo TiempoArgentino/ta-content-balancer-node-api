@@ -18,6 +18,29 @@ TA CRUD API
 
     npm start
 
+## Create user and api_key
+
+### Request
+
+`POST /auth/signup`
+
+    Headers:
+    Accept: 'application/json'
+
+    Body:
+    {
+    "username": "username",
+    "email": "email",
+    "password": "password",
+    "api_key": "api_key",
+    "roles":["user","admin","moderator"]
+    }
+
+### Response
+
+    Status: 200 OK
+    Content-Type: application/json
+
 # REST API
 
 ## List of posts
@@ -28,6 +51,7 @@ TA CRUD API
 
     Headers:
     Accept: 'application/json'
+    api_key: "api_key",
 
 ### Response
 
@@ -42,6 +66,7 @@ TA CRUD API
 
     Headers:
     Accept: 'application/json'
+    api_key: "api_key",
 
     Body example:
     {
@@ -76,6 +101,7 @@ TA CRUD API
 
     Headers:
     Accept: 'application/json'
+    api_key: "api_key",
 
     Body example:
     {
@@ -144,6 +170,7 @@ TA CRUD API
 
     Headers:
     Accept: 'application/json'
+    api_key: "api_key",
 
 ### Response
 
@@ -160,6 +187,7 @@ TA CRUD API
 
     Headers:
     Accept: 'application/json'
+    api_key: "api_key",
 
 ### Response
 
@@ -176,6 +204,7 @@ TA CRUD API
 
     Headers:
     Accept: 'application/json'
+    api_key: "api_key",
 
 ### Response
 
@@ -192,6 +221,7 @@ TA CRUD API
 
     Headers:
     Accept: 'application/json'
+    api_key: "api_key",
 
 ### Response
 

@@ -1,7 +1,7 @@
 import { Mongoose } from "mongoose";
 // import { reset } from "nodemon";
 import Post from "../models/Post";
-
+import User from "../models/User";
 /* *************************************************** */
 /* *************************************************** */
 export const createPost = async (req, res) => {

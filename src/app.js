@@ -7,6 +7,8 @@ import postsRoutes from "./routes/posts.routes";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/users.routes";
 
+import { clientApiKeyValidation } from "./middlewares/authUtils";
+
 const app = express();
 
 //settings
@@ -29,6 +31,7 @@ app.get("/", (req, res) => {
     message: "Index!",
   });
 });
+app.use(clientApiKeyValidation);
 app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
