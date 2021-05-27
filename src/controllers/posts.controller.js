@@ -41,7 +41,50 @@ export const createPost = async (req, res) => {
     });
   }
 };
+/* *************************************************** */
+/* *************************************************** */
+export const createAllPosts = (req, res) => {
+  const allAPostsObject = req.body;
+  allAPostsObject.map(async (post) => {
+    const {
+      postId,
+      title,
+      url,
+      headband,
+      imgURL,
+      isOpinion,
+      section,
+      authors,
+      tags,
+      themes,
+      places,
+    } = post;
 
+    const newPost = new Post({
+      postId,
+      title,
+      url,
+      headband,
+      imgURL,
+      isOpinion,
+      section,
+      authors,
+      tags,
+      themes,
+      places,
+    });
+
+    try {
+      const postSaved = await newPost.save();
+      res.status(201).json(postSaved);
+    } catch (error) {
+      res.status(401).json({
+        message: `QUERY ERROR ${error.message} `,
+      });
+    }
+  });
+  res.status(200).json("Posts has been created");
+};
 /* *************************************************** */
 /* *************************************************** */
 
@@ -67,15 +110,19 @@ export const getPostsWithCriteria = async (req, res) => {
     // ***********************************************
     // ***********************************************
     const userPreferencePosts = await Post.find({
-      "authors.authorId": { $in: userPreference.authors },
-      "tags.tagId": { $in: userPreference.tag },
-      section: { $in: userPreference.sections },
-      postId: { $nin: ignore },
-      // "authors.authorName": {
-      //   // $in: ["Pandemia", "Politica", "Cine", "DepoRtes".toLowerCase()],
-      //   $in: authors,
-      // },
-      // isOpinion: true,
+      $and: [
+        {
+          $or: [
+            { "authors.authorId": { $in: userPreference.authors } },
+            { "authors.authorId": { $in: userPreference.authors } },
+            { "tags.tagId": { $in: userPreference.tags } },
+            { section: { $in: userPreference.sections } },
+            { "themes.themeId": { $in: userPreference.themes } },
+            { place: { $in: userPreference.place } },
+          ],
+        },
+        { postId: { $nin: ignore } },
+      ],
     });
 
     userPreferencePosts.map((post) => {
@@ -91,7 +138,7 @@ export const getPostsWithCriteria = async (req, res) => {
       amounts.userPreference +
       amounts.editorial +
       amounts.mostViewed -
-      totalPosts.length;
+      (mostViewsPosts.length + userPreferencePosts.length);
 
     const editorialPosts = await Post.find({ postId: { $nin: ignore } }).limit(
       editorialPostsCount
@@ -106,6 +153,7 @@ export const getPostsWithCriteria = async (req, res) => {
     });
   }
 };
+
 /* *************************************************** */
 /* *************************************************** */
 export const getPosts = async (req, res) => {

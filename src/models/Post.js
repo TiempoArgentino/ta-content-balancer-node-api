@@ -7,23 +7,27 @@ const postSchema = new Schema(
 
     postId: { type: Number, required: true, trim: true, unique: true },
 
-    title: { type: String, required: true, lowercase: true, trim: true },
+    place: { type: Number },
+
+    themes: [{ themeId: Number }],
+
+    title: { type: String, trim: true },
 
     url: { type: String, required: true, lowercase: true, trim: true },
 
-    headband: { type: String, required: true, lowercase: true, trim: true },
+    headband: { type: String, trim: true },
 
     imgURL: { type: String, lowercase: true },
 
-    isOpinion: { type: Boolean, lowercase: true, required: true },
+    isOpinion: { type: Boolean },
 
-    section: Number,
+    section: { type: Number, required: true },
 
     authors: [
       {
-        authorId: Number,
-        authorName: { type: String, lowercase: true },
-        authorUrl: { type: String, lowercase: true },
+        authorId: { type: Number, required: true },
+        authorName: { type: String, required: true },
+        authorUrl: { type: String, required: true, lowercase: true },
         authorImage: { type: String, lowercase: true },
       },
     ],
