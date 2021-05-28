@@ -328,21 +328,28 @@ exports.getPostById = getPostById;
 
 var updatePostById = /*#__PURE__*/function () {
   var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res) {
-    var updatedPost;
+    var updatedOrCreatedPost;
     return _regenerator["default"].wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return _Post["default"].findOneAndUpdate({
-              postId: req.params.postId
+            return _Post["default"].update({
+              postId: req.body.postId
             }, req.body, {
-              "new": true
+              upsert: true
             });
 
           case 2:
-            updatedPost = _context6.sent;
-            res.status(200).json(updatedPost);
+            updatedOrCreatedPost = _context6.sent;
+            // const updatedPost = await Post.findOneAndUpdate(
+            //   { postId: req.params.postId },
+            //   req.body,
+            //   {
+            //     new: true,
+            //   }
+            // );
+            res.status(200).json(updatedOrCreatedPost);
 
           case 4:
           case "end":

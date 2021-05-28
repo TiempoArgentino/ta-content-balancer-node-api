@@ -24,7 +24,7 @@ router.get("/", postsCtrl.getPosts); //GET ITEMS WITH MULTIPLE CRITERIA
 
 router.get("/personalized", postsCtrl.getPostsWithCriteria); //GET ITEM BY ID
 
-router.get("/:postId", postsCtrl.getPostById); //PUT ITEM BY ID
+router.get("/:postId", postsCtrl.getPostById); //PUT UPDATE POST
 // router.put("/:postId", authJwt.verifyToken, postsCtrl.updatePostById);
 
 router.put("/:postId", postsCtrl.updatePostById); //DELETE ITEM BY ID
