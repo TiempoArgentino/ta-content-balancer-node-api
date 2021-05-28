@@ -23,6 +23,7 @@ router.get("/:postId", postsCtrl.getPostById);
 //PUT ITEM BY ID
 // router.put("/:postId", authJwt.verifyToken, postsCtrl.updatePostById);
 router.put("/:postId", postsCtrl.updatePostById);
+
 //DELETE ITEM BY ID
 // router.delete(
 //   "/:postId",
@@ -31,6 +32,11 @@ router.put("/:postId", postsCtrl.updatePostById);
 // );
 router.delete("/:postId", postsCtrl.deletePostById);
 
+//DELETE TERMS BY ID
+router.put("/terms/:id", postsCtrl.deleteTermsById);
+
+//UPDATE AUTHOR FROM ALL POSTS
+router.put("/updateauthor/:id", postsCtrl.updateAuthorFromAllPosts);
 // router.delete(
 //   "/",
 //   [authJwt.verifyToken, authJwt.isAdmin],

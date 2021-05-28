@@ -173,8 +173,9 @@ export const updatePostById = async (req, res) => {
   // const post = await Post.findById(req.params.postIda);
   // res.status(200).json(post);
 
+  //TODO: tiene que cambiar el autor para todos los articulos
   const updatedPost = await Post.findOneAndUpdate(
-    { _id: req.params.postId },
+    { postId: req.params.postId },
     req.body,
     {
       new: true,
@@ -186,9 +187,66 @@ export const updatePostById = async (req, res) => {
 /* *************************************************** */
 /* *************************************************** */
 export const deletePostById = async (req, res) => {
-  await Post.findByIdAndDelete(req.params.postId);
+  // await Post.findByIdAndDelete(req.params.postId);
   // await Post.deleteMany();
+  Post.deleteOne({ postId: req.params.postId }, function (err) {
+    if (err) console.log(err);
+    console.log("Successful deletion");
+  });
   res.status(204).json();
+};
+
+/* *************************************************** */
+/* *************************************************** */
+export const deleteTermsById = async (req, res) => {
+  const taxonomy = req.body.taxonomy;
+  const idToDelete = req.body.id;
+
+  const idFields = {
+    authors: "authorId",
+    tags: "tagsId",
+    places: "placeId",
+    themes: "themeId",
+  };
+
+  const taxIdField = idFields[taxonomy];
+  const query = `${taxonomy}.${taxIdField}`;
+
+  Post.find({ [query]: idToDelete }, function (err, results) {
+    console.log(results);
+    results.map((post) => {
+      post[taxonomy].map((item) => {
+        console.log(item);
+        if (item[taxIdField] === idToDelete) item.remove();
+      });
+      post.save();
+    });
+  });
+
+  res.status(204).json("taxonimy has beer deleted from all posts");
+};
+
+/* *************************************************** */
+/* *************************************************** */
+export const updateAuthorFromAllPosts = async (req, res) => {
+  const { authorId, authorName, authorUrl, authorImg } = req.body;
+
+  Post.find({ "authors.authorId": req.body.authorId }, function (err, results) {
+    console.log(results);
+    results.map((post) => {
+      post.authors.map((author) => {
+        console.log(author);
+        if (author.authorId === req.body.authorId) {
+          author.authorName = req.body.authorName;
+          author.authorImg = req.body.authorImg;
+          author.authorUrl = req.body.authorUrl;
+        }
+      });
+      post.save();
+    });
+  });
+
+  res.status(204).json("taxonimy has beer deleted from all posts");
 };
 /* *************************************************** */
 /* *************************************************** */

@@ -28,7 +28,7 @@ const postSchema = new Schema(
         authorId: { type: Number, required: true },
         authorName: { type: String, required: true },
         authorUrl: { type: String, required: true, lowercase: true },
-        authorImage: { type: String, lowercase: true },
+        authorImg: { type: String, lowercase: true },
       },
     ],
 
