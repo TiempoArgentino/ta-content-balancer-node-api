@@ -22,7 +22,7 @@ router.post("/allposts", postsCtrl.createAllPosts); //GET ALL ITEMS
 
 router.get("/", postsCtrl.getPosts); //GET ITEMS WITH MULTIPLE CRITERIA
 
-router.get("/personalized", postsCtrl.getPostsWithCriteria); //GET ITEM BY ID
+router.post("/personalized", postsCtrl.getPostsWithCriteria); //GET ITEM BY ID
 
 router.get("/:postId", postsCtrl.getPostById); //PUT UPDATE POST
 // router.put("/:postId", authJwt.verifyToken, postsCtrl.updatePostById);

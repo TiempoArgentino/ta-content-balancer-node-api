@@ -29,35 +29,42 @@ var postSchema = new _mongoose.Schema((_Schema = {
     unique: true
   },
   place: {
-    type: Number
+    type: Number,
+    "default": null
   },
   themes: [{
     themeId: Number
   }],
   title: {
     type: String,
-    trim: true
+    trim: true,
+    "default": null
   },
   url: {
     type: String,
     required: true,
+    "default": null,
     lowercase: true,
     trim: true
   },
   headband: {
     type: String,
-    trim: true
+    trim: true,
+    "default": null
   },
   imgURL: {
     type: String,
-    lowercase: true
+    lowercase: true,
+    "default": null
   },
   isOpinion: {
-    type: Boolean
+    type: Boolean,
+    "default": null
   },
   section: {
     type: Number,
-    required: true
+    required: true,
+    "default": null
   },
   authors: [{
     authorId: {

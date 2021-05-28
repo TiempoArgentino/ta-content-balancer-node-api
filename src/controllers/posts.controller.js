@@ -19,18 +19,19 @@ export const createPost = async (req, res) => {
 /* *************************************************** */
 export const createAllPosts = (req, res) => {
   const allAPostsObject = req.body;
-
+  const savedPosts = [];
+  // try {
   allAPostsObject.map(async (post) => {
     const newPost = new Post(post);
-    try {
-      const postSaved = await newPost.save();
-      res.status(201).json(postSaved);
-    } catch (error) {
-      res.status(401).json({
-        message: `QUERY ERROR ${error.message} `,
-      });
-    }
+    const postSave = await newPost.save();
+    savedPosts.push(postSave);
   });
+  res.status(201).json(savedPosts);
+  // } catch (error) {
+  //   res.status(401).json({
+  //     message: `QUERY ERROR ${error.message} `,
+  //   });
+  // }
 };
 /* *************************************************** */
 /* *************************************************** */
@@ -118,34 +119,29 @@ export const getPostById = async (req, res) => {
 /* *************************************************** */
 /* *************************************************** */
 export const updatePostById = async (req, res) => {
-  // const post = await Post.findById(req.params.postIda);
-  // res.status(200).json(post);
-
   const updatedOrCreatedPost = await Post.update(
     { postId: req.body.postId },
     req.body,
     { upsert: true }
   );
-  // const updatedPost = await Post.findOneAndUpdate(
-  //   { postId: req.params.postId },
-  //   req.body,
-  //   {
-  //     new: true,
-  //   }
-  // );
+
   res.status(200).json(updatedOrCreatedPost);
 };
 
 /* *************************************************** */
 /* *************************************************** */
 export const deletePostById = async (req, res) => {
-  // await Post.findByIdAndDelete(req.params.postId);
-  // await Post.deleteMany();
-  Post.deleteOne({ postId: req.params.postId }, function (err) {
-    if (err) console.log(err);
-    console.log("Successful deletion");
-  });
-  res.status(204).json();
+  try {
+    Post.deleteOne({ postId: req.params.postId }, function (err) {
+      if (err) console.log(err);
+      console.log("Successful deletion");
+    });
+    res.status(204).json();
+  } catch (error) {
+    res.status(401).json({
+      message: `QUERY ERROR ${error.message} `,
+    });
+  }
 };
 
 /* *************************************************** */
