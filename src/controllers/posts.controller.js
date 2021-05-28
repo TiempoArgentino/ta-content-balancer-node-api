@@ -37,6 +37,7 @@ export const createAllPosts = (req, res) => {
 
 export const getPostsWithCriteria = async (req, res) => {
   const { amounts, userPreference, mostViewed, ignore } = req.body;
+  console.log(req.body);
   let totalPosts = [];
   try {
     // ***********************************************
