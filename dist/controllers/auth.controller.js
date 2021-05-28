@@ -34,64 +34,66 @@ var _config = _interopRequireDefault(require("../config"));
 /* *************************************************** */
 var signUp = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, username, email, password, roles, newUser, foundRoles, role, savedUser, token;
+    var _req$body, username, email, password, roles, api_key, newUser, foundRoles, role, savedUser, token;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, username = _req$body.username, email = _req$body.email, password = _req$body.password, roles = _req$body.roles;
+            _req$body = req.body, username = _req$body.username, email = _req$body.email, password = _req$body.password, roles = _req$body.roles, api_key = _req$body.api_key;
             _context.t0 = _User["default"];
             _context.t1 = username;
             _context.t2 = email;
-            _context.next = 6;
+            _context.t3 = api_key;
+            _context.next = 7;
             return _User["default"].encryptPassword(password);
 
-          case 6:
-            _context.t3 = _context.sent;
-            _context.t4 = {
+          case 7:
+            _context.t4 = _context.sent;
+            _context.t5 = {
               username: _context.t1,
               email: _context.t2,
-              password: _context.t3
+              api_key: _context.t3,
+              password: _context.t4
             };
-            newUser = new _context.t0(_context.t4);
+            newUser = new _context.t0(_context.t5);
 
             if (!roles) {
-              _context.next = 17;
+              _context.next = 18;
               break;
             }
 
-            _context.next = 12;
+            _context.next = 13;
             return _Role["default"].find({
               name: {
                 $in: roles
               }
             });
 
-          case 12:
+          case 13:
             foundRoles = _context.sent;
             console.log(foundRoles);
             newUser.roles = foundRoles.map(function (role) {
               return role._id;
             });
-            _context.next = 21;
+            _context.next = 22;
             break;
 
-          case 17:
-            _context.next = 19;
+          case 18:
+            _context.next = 20;
             return _Role["default"].findOne({
               name: "user"
             });
 
-          case 19:
+          case 20:
             role = _context.sent;
             newUser.roles = [role._id];
 
-          case 21:
-            _context.next = 23;
+          case 22:
+            _context.next = 24;
             return newUser.save();
 
-          case 23:
+          case 24:
             savedUser = _context.sent;
             console.log(savedUser);
             token = _jsonwebtoken["default"].sign({
@@ -104,7 +106,7 @@ var signUp = /*#__PURE__*/function () {
               token: token
             });
 
-          case 27:
+          case 28:
           case "end":
             return _context.stop();
         }

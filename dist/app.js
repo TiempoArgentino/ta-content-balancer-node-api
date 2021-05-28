@@ -21,9 +21,11 @@ var _auth = _interopRequireDefault(require("./routes/auth.routes"));
 
 var _users = _interopRequireDefault(require("./routes/users.routes"));
 
+var _authUtils = require("./middlewares/authUtils");
+
 var app = (0, _express["default"])(); //settings
 
-app.set("port", process.env.PORT || 3002); //delete for tiempo arg
+app.set("port", process.env.PORT || 3003); //delete for tiempo arg
 
 (0, _initialSetup.createRoles)(); //middlewares
 
@@ -36,7 +38,9 @@ app.get("/", function (req, res) {
   res.json({
     message: "Index!"
   });
-});
+}); //app.use("/api/loggin", postsRoutes); return api_key
+// app.use(clientApiKeyValidation);
+
 app.use("/api/posts", _posts["default"]);
 app.use("/api/auth", _auth["default"]);
 app.use("/api/users", _users["default"]);
