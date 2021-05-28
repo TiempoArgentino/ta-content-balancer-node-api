@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 const postSchema = new Schema(
   {
     // expire_at: { type: Date, default: Date.now, expires: 60 },
-    expireAt: { type: Date, default: Date.now, index: { expires: "1d" } },
+    expireAt: { type: Date, default: Date.now, index: { expires: "20d" } },
 
     postId: { type: Number, required: true, trim: true, unique: true },
 
