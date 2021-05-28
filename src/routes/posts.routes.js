@@ -20,7 +20,7 @@ router.get("/personalized", postsCtrl.getPostsWithCriteria);
 //GET ITEM BY ID
 router.get("/:postId", postsCtrl.getPostById);
 
-//PUT ITEM BY ID
+//PUT UPDATE POST
 // router.put("/:postId", authJwt.verifyToken, postsCtrl.updatePostById);
 router.put("/:postId", postsCtrl.updatePostById);
 

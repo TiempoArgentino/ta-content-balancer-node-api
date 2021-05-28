@@ -173,15 +173,19 @@ export const updatePostById = async (req, res) => {
   // const post = await Post.findById(req.params.postIda);
   // res.status(200).json(post);
 
-  //TODO: tiene que cambiar el autor para todos los articulos
-  const updatedPost = await Post.findOneAndUpdate(
-    { postId: req.params.postId },
+  const updatedOrCreatedPost = await Post.update(
+    { postId: req.body.postId },
     req.body,
-    {
-      new: true,
-    }
+    { upsert: true }
   );
-  res.status(200).json(updatedPost);
+  // const updatedPost = await Post.findOneAndUpdate(
+  //   { postId: req.params.postId },
+  //   req.body,
+  //   {
+  //     new: true,
+  //   }
+  // );
+  res.status(200).json(updatedOrCreatedPost);
 };
 
 /* *************************************************** */
