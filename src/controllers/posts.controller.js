@@ -5,38 +5,12 @@ import User from "../models/User";
 /* *************************************************** */
 /* *************************************************** */
 export const createPost = async (req, res) => {
-  const {
-    postId,
-    title,
-    url,
-    headband,
-    imgURL,
-    isOpinion,
-    section,
-    authors,
-    tags,
-    themes,
-    places,
-  } = req.body;
-
-  const newPost = new Post({
-    postId,
-    title,
-    url,
-    headband,
-    imgURL,
-    isOpinion,
-    section,
-    authors,
-    tags,
-    themes,
-    places,
-  });
+  const newPost = new Post(req.body);
   try {
     const postSaved = await newPost.save();
     res.status(201).json(postSaved);
   } catch (error) {
-    res.status(401).json({
+    res.status(400).json({
       message: `QUERY ERROR ${error.message} `,
     });
   }
@@ -45,35 +19,9 @@ export const createPost = async (req, res) => {
 /* *************************************************** */
 export const createAllPosts = (req, res) => {
   const allAPostsObject = req.body;
+
   allAPostsObject.map(async (post) => {
-    const {
-      postId,
-      title,
-      url,
-      headband,
-      imgURL,
-      isOpinion,
-      section,
-      authors,
-      tags,
-      themes,
-      places,
-    } = post;
-
-    const newPost = new Post({
-      postId,
-      title,
-      url,
-      headband,
-      imgURL,
-      isOpinion,
-      section,
-      authors,
-      tags,
-      themes,
-      places,
-    });
-
+    const newPost = new Post(post);
     try {
       const postSaved = await newPost.save();
       res.status(201).json(postSaved);
@@ -83,7 +31,6 @@ export const createAllPosts = (req, res) => {
       });
     }
   });
-  res.status(200).json("Posts has been created");
 };
 /* *************************************************** */
 /* *************************************************** */
