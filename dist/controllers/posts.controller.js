@@ -28,49 +28,35 @@ var _User = _interopRequireDefault(require("../models/User"));
 /* *************************************************** */
 var createPost = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, postId, title, url, headband, imgURL, isOpinion, section, authors, tags, themes, places, newPost, postSaved;
-
+    var newPost, postSaved;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, postId = _req$body.postId, title = _req$body.title, url = _req$body.url, headband = _req$body.headband, imgURL = _req$body.imgURL, isOpinion = _req$body.isOpinion, section = _req$body.section, authors = _req$body.authors, tags = _req$body.tags, themes = _req$body.themes, places = _req$body.places;
-            newPost = new _Post["default"]({
-              postId: postId,
-              title: title,
-              url: url,
-              headband: headband,
-              imgURL: imgURL,
-              isOpinion: isOpinion,
-              section: section,
-              authors: authors,
-              tags: tags,
-              themes: themes,
-              places: places
-            });
-            _context.prev = 2;
-            _context.next = 5;
+            newPost = new _Post["default"](req.body);
+            _context.prev = 1;
+            _context.next = 4;
             return newPost.save();
 
-          case 5:
+          case 4:
             postSaved = _context.sent;
             res.status(201).json(postSaved);
-            _context.next = 12;
+            _context.next = 11;
             break;
 
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](2);
-            res.status(401).json({
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](1);
+            res.status(400).json({
               message: "QUERY ERROR ".concat(_context.t0.message, " ")
             });
 
-          case 12:
+          case 11:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[2, 9]]);
+    }, _callee, null, [[1, 8]]);
   }));
 
   return function createPost(_x, _x2) {
@@ -86,57 +72,40 @@ exports.createPost = createPost;
 
 var createAllPosts = function createAllPosts(req, res) {
   var allAPostsObject = req.body;
+  var savedPosts = []; // try {
+
   allAPostsObject.map( /*#__PURE__*/function () {
     var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(post) {
-      var postId, title, url, headband, imgURL, isOpinion, section, authors, tags, themes, places, newPost, postSaved;
+      var newPost, postSave;
       return _regenerator["default"].wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              postId = post.postId, title = post.title, url = post.url, headband = post.headband, imgURL = post.imgURL, isOpinion = post.isOpinion, section = post.section, authors = post.authors, tags = post.tags, themes = post.themes, places = post.places;
-              newPost = new _Post["default"]({
-                postId: postId,
-                title: title,
-                url: url,
-                headband: headband,
-                imgURL: imgURL,
-                isOpinion: isOpinion,
-                section: section,
-                authors: authors,
-                tags: tags,
-                themes: themes,
-                places: places
-              });
-              _context2.prev = 2;
-              _context2.next = 5;
+              newPost = new _Post["default"](post);
+              _context2.next = 3;
               return newPost.save();
 
+            case 3:
+              postSave = _context2.sent;
+              savedPosts.push(postSave);
+
             case 5:
-              postSaved = _context2.sent;
-              res.status(201).json(postSaved);
-              _context2.next = 12;
-              break;
-
-            case 9:
-              _context2.prev = 9;
-              _context2.t0 = _context2["catch"](2);
-              res.status(401).json({
-                message: "QUERY ERROR ".concat(_context2.t0.message, " ")
-              });
-
-            case 12:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 9]]);
+      }, _callee2);
     }));
 
     return function (_x3) {
       return _ref2.apply(this, arguments);
     };
   }());
-  res.status(200).json("Posts has been created");
+  res.status(201).json(savedPosts); // } catch (error) {
+  //   res.status(401).json({
+  //     message: `QUERY ERROR ${error.message} `,
+  //   });
+  // }
 };
 /* *************************************************** */
 
@@ -147,23 +116,24 @@ exports.createAllPosts = createAllPosts;
 
 var getPostsWithCriteria = /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-    var _req$body2, amounts, userPreference, mostViewed, ignore, totalPosts, mostViewsPosts, userPreferencePosts, editorialPostsCount, editorialPosts;
+    var _req$body, amounts, userPreference, mostViewed, ignore, totalPosts, mostViewsPosts, userPreferencePosts, editorialPostsCount, editorialPosts;
 
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _req$body2 = req.body, amounts = _req$body2.amounts, userPreference = _req$body2.userPreference, mostViewed = _req$body2.mostViewed, ignore = _req$body2.ignore;
+            _req$body = req.body, amounts = _req$body.amounts, userPreference = _req$body.userPreference, mostViewed = _req$body.mostViewed, ignore = _req$body.ignore;
+            console.log(req.body);
             totalPosts = [];
-            _context3.prev = 2;
-            _context3.next = 5;
+            _context3.prev = 3;
+            _context3.next = 6;
             return _Post["default"].find({
               postId: {
                 $in: mostViewed
               }
             });
 
-          case 5:
+          case 6:
             mostViewsPosts = _context3.sent;
             mostViewsPosts.map(function (post) {
               ignore.push(post.postId);
@@ -173,7 +143,7 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
             // ***********************************************
             // ***********************************************
 
-            _context3.next = 9;
+            _context3.next = 10;
             return _Post["default"].find({
               $and: [{
                 $or: [{
@@ -208,7 +178,7 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
               }]
             });
 
-          case 9:
+          case 10:
             userPreferencePosts = _context3.sent;
             userPreferencePosts.map(function (post) {
               ignore.push(post.postId);
@@ -219,34 +189,34 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
             // ***********************************************
 
             editorialPostsCount = amounts.userPreference + amounts.editorial + amounts.mostViewed - (mostViewsPosts.length + userPreferencePosts.length);
-            _context3.next = 14;
+            _context3.next = 15;
             return _Post["default"].find({
               postId: {
                 $nin: ignore
               }
             }).limit(editorialPostsCount);
 
-          case 14:
+          case 15:
             editorialPosts = _context3.sent;
             totalPosts = [].concat((0, _toConsumableArray2["default"])(userPreferencePosts), (0, _toConsumableArray2["default"])(mostViewsPosts), (0, _toConsumableArray2["default"])(editorialPosts));
             res.status(200).json(totalPosts);
-            _context3.next = 23;
+            _context3.next = 24;
             break;
 
-          case 19:
-            _context3.prev = 19;
-            _context3.t0 = _context3["catch"](2);
+          case 20:
+            _context3.prev = 20;
+            _context3.t0 = _context3["catch"](3);
             console.log("ERROR ", _context3.t0);
             res.status(401).json({
               message: "QUERY ERROR ".concat(_context3.t0.message, " ")
             });
 
-          case 23:
+          case 24:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[2, 19]]);
+    }, _callee3, null, [[3, 20]]);
   }));
 
   return function getPostsWithCriteria(_x4, _x5) {
@@ -342,13 +312,6 @@ var updatePostById = /*#__PURE__*/function () {
 
           case 2:
             updatedOrCreatedPost = _context6.sent;
-            // const updatedPost = await Post.findOneAndUpdate(
-            //   { postId: req.params.postId },
-            //   req.body,
-            //   {
-            //     new: true,
-            //   }
-            // );
             res.status(200).json(updatedOrCreatedPost);
 
           case 4:
@@ -376,18 +339,22 @@ var deletePostById = /*#__PURE__*/function () {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
-            // await Post.findByIdAndDelete(req.params.postId);
-            // await Post.deleteMany();
-            _Post["default"].deleteOne({
-              postId: req.params.postId
-            }, function (err) {
-              if (err) console.log(err);
-              console.log("Successful deletion");
-            });
+            try {
+              _Post["default"].deleteOne({
+                postId: req.params.postId
+              }, function (err) {
+                if (err) console.log(err);
+                console.log("Successful deletion");
+              });
 
-            res.status(204).json();
+              res.status(204).json();
+            } catch (error) {
+              res.status(401).json({
+                message: "QUERY ERROR ".concat(error.message, " ")
+              });
+            }
 
-          case 2:
+          case 1:
           case "end":
             return _context7.stop();
         }
@@ -458,13 +425,13 @@ exports.deleteTermsById = deleteTermsById;
 
 var updateAuthorFromAllPosts = /*#__PURE__*/function () {
   var _ref9 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res) {
-    var _req$body3, authorId, authorName, authorUrl, authorImg;
+    var _req$body2, authorId, authorName, authorUrl, authorImg;
 
     return _regenerator["default"].wrap(function _callee9$(_context9) {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
-            _req$body3 = req.body, authorId = _req$body3.authorId, authorName = _req$body3.authorName, authorUrl = _req$body3.authorUrl, authorImg = _req$body3.authorImg;
+            _req$body2 = req.body, authorId = _req$body2.authorId, authorName = _req$body2.authorName, authorUrl = _req$body2.authorUrl, authorImg = _req$body2.authorImg;
 
             _Post["default"].find({
               "authors.authorId": req.body.authorId

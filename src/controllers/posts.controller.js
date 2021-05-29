@@ -5,38 +5,12 @@ import User from "../models/User";
 /* *************************************************** */
 /* *************************************************** */
 export const createPost = async (req, res) => {
-  const {
-    postId,
-    title,
-    url,
-    headband,
-    imgURL,
-    isOpinion,
-    section,
-    authors,
-    tags,
-    themes,
-    places,
-  } = req.body;
-
-  const newPost = new Post({
-    postId,
-    title,
-    url,
-    headband,
-    imgURL,
-    isOpinion,
-    section,
-    authors,
-    tags,
-    themes,
-    places,
-  });
+  const newPost = new Post(req.body);
   try {
     const postSaved = await newPost.save();
     res.status(201).json(postSaved);
   } catch (error) {
-    res.status(401).json({
+    res.status(400).json({
       message: `QUERY ERROR ${error.message} `,
     });
   }
@@ -45,51 +19,26 @@ export const createPost = async (req, res) => {
 /* *************************************************** */
 export const createAllPosts = (req, res) => {
   const allAPostsObject = req.body;
+  const savedPosts = [];
+  // try {
   allAPostsObject.map(async (post) => {
-    const {
-      postId,
-      title,
-      url,
-      headband,
-      imgURL,
-      isOpinion,
-      section,
-      authors,
-      tags,
-      themes,
-      places,
-    } = post;
-
-    const newPost = new Post({
-      postId,
-      title,
-      url,
-      headband,
-      imgURL,
-      isOpinion,
-      section,
-      authors,
-      tags,
-      themes,
-      places,
-    });
-
-    try {
-      const postSaved = await newPost.save();
-      res.status(201).json(postSaved);
-    } catch (error) {
-      res.status(401).json({
-        message: `QUERY ERROR ${error.message} `,
-      });
-    }
+    const newPost = new Post(post);
+    const postSave = await newPost.save();
+    savedPosts.push(postSave);
   });
-  res.status(200).json("Posts has been created");
+  res.status(201).json(savedPosts);
+  // } catch (error) {
+  //   res.status(401).json({
+  //     message: `QUERY ERROR ${error.message} `,
+  //   });
+  // }
 };
 /* *************************************************** */
 /* *************************************************** */
 
 export const getPostsWithCriteria = async (req, res) => {
   const { amounts, userPreference, mostViewed, ignore } = req.body;
+  console.log(req.body);
   let totalPosts = [];
   try {
     // ***********************************************
@@ -170,34 +119,29 @@ export const getPostById = async (req, res) => {
 /* *************************************************** */
 /* *************************************************** */
 export const updatePostById = async (req, res) => {
-  // const post = await Post.findById(req.params.postIda);
-  // res.status(200).json(post);
-
   const updatedOrCreatedPost = await Post.update(
     { postId: req.body.postId },
     req.body,
     { upsert: true }
   );
-  // const updatedPost = await Post.findOneAndUpdate(
-  //   { postId: req.params.postId },
-  //   req.body,
-  //   {
-  //     new: true,
-  //   }
-  // );
+
   res.status(200).json(updatedOrCreatedPost);
 };
 
 /* *************************************************** */
 /* *************************************************** */
 export const deletePostById = async (req, res) => {
-  // await Post.findByIdAndDelete(req.params.postId);
-  // await Post.deleteMany();
-  Post.deleteOne({ postId: req.params.postId }, function (err) {
-    if (err) console.log(err);
-    console.log("Successful deletion");
-  });
-  res.status(204).json();
+  try {
+    Post.deleteOne({ postId: req.params.postId }, function (err) {
+      if (err) console.log(err);
+      console.log("Successful deletion");
+    });
+    res.status(204).json();
+  } catch (error) {
+    res.status(401).json({
+      message: `QUERY ERROR ${error.message} `,
+    });
+  }
 };
 
 /* *************************************************** */
