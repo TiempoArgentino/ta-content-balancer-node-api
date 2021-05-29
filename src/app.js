@@ -20,7 +20,7 @@ createRoles();
 //middlewares
 app.use(
   cors({
-    origin: `http://localhost:${app.get("port")}`,
+    origin: true,
   })
 );
 app.use(morgan("dev"));

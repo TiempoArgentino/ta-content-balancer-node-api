@@ -15,7 +15,7 @@ router.post("/allposts", postsCtrl.createAllPosts);
 router.get("/", postsCtrl.getPosts);
 
 //GET ITEMS WITH MULTIPLE CRITERIA
-router.get("/personalized", postsCtrl.getPostsWithCriteria);
+router.post("/personalized", postsCtrl.getPostsWithCriteria);
 
 //GET ITEM BY ID
 router.get("/:postId", postsCtrl.getPostById);
