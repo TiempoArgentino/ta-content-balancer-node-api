@@ -86,7 +86,7 @@ var postSchema = new _mongoose.Schema((_Schema = {
     }
   }],
   tags: [{
-    tagsId: Number
+    tagId: Number
   }]
 }, (0, _defineProperty2["default"])(_Schema, "themes", [{
   themeId: Number

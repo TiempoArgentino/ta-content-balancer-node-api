@@ -171,7 +171,7 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
                     $in: userPreference.themes
                   }
                 }, {
-                  place: {
+                  "places.placeId": {
                     $in: userPreference.places
                   }
                 }]

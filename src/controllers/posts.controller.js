@@ -73,7 +73,7 @@ export const getPostsWithCriteria = async (req, res) => {
               { "tags.tagId": { $in: userPreference.tags } },
               { section: { $in: userPreference.sections } },
               { "themes.themeId": { $in: userPreference.themes } },
-              { place: { $in: userPreference.places } },
+              { "places.placeId": { $in: userPreference.places } },
             ],
           },
           { postId: { $nin: ignore } },
