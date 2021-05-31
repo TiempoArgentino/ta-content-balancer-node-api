@@ -38,7 +38,7 @@ const postSchema = new Schema(
       },
     ],
 
-    tags: [{ tagsId: Number }],
+    tags: [{ tagId: Number }],
 
     themes: [{ themeId: Number }],
 
