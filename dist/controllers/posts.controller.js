@@ -116,7 +116,7 @@ exports.createAllPosts = createAllPosts;
 
 var getPostsWithCriteria = /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-    var _req$body, amounts, userPreference, mostViewed, ignore, totalPosts, mostViewsPosts, userPreferencePosts, editorialPostsCount, editorialPosts;
+    var _req$body, amounts, userPreference, mostViewed, ignore, totalPosts, mostViewsPosts, userPreferencePosts, editorialPosts, editorialPostsCount;
 
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
@@ -124,26 +124,34 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
           case 0:
             _req$body = req.body, amounts = _req$body.amounts, userPreference = _req$body.userPreference, mostViewed = _req$body.mostViewed, ignore = _req$body.ignore;
             console.log(req.body);
-            totalPosts = [];
+            totalPosts = [], mostViewsPosts = [], userPreferencePosts = [], editorialPosts = [];
             _context3.prev = 3;
-            _context3.next = 6;
+
+            if (!(amounts.mostViewed > 0)) {
+              _context3.next = 9;
+              break;
+            }
+
+            _context3.next = 7;
             return _Post["default"].find({
               postId: {
                 $in: mostViewed
               }
-            });
+            }).limit(amounts.mostViewed);
 
-          case 6:
+          case 7:
             mostViewsPosts = _context3.sent;
             mostViewsPosts.map(function (post) {
               ignore.push(post.postId);
-            }); // ***********************************************
-            // ***********************************************
-            //userPreference posts find
-            // ***********************************************
-            // ***********************************************
+            });
 
-            _context3.next = 10;
+          case 9:
+            if (!(amounts.userPreference > 0)) {
+              _context3.next = 14;
+              break;
+            }
+
+            _context3.next = 12;
             return _Post["default"].find({
               $and: [{
                 $or: [{
@@ -176,47 +184,61 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
                   $nin: ignore
                 }
               }]
-            });
+            }).limit(amounts.userPreference);
 
-          case 10:
+          case 12:
             userPreferencePosts = _context3.sent;
             userPreferencePosts.map(function (post) {
               ignore.push(post.postId);
-            }); // ***********************************************
+            });
+
+          case 14:
+            // ***********************************************
             // ***********************************************
             //editorial posts find
             // ***********************************************
             // ***********************************************
-
             editorialPostsCount = amounts.userPreference + amounts.editorial + amounts.mostViewed - (mostViewsPosts.length + userPreferencePosts.length);
-            _context3.next = 15;
+            console.log("suma", amounts.userPreference, "+", amounts.editorial, "+", amounts.mostViewed, "-", mostViewsPosts.length + userPreferencePosts.length);
+
+            if (!(editorialPostsCount > 0)) {
+              _context3.next = 20;
+              break;
+            }
+
+            _context3.next = 19;
             return _Post["default"].find({
               postId: {
                 $nin: ignore
               }
             }).limit(editorialPostsCount);
 
-          case 15:
+          case 19:
             editorialPosts = _context3.sent;
-            totalPosts = [].concat((0, _toConsumableArray2["default"])(userPreferencePosts), (0, _toConsumableArray2["default"])(mostViewsPosts), (0, _toConsumableArray2["default"])(editorialPosts));
-            res.status(200).json(totalPosts);
-            _context3.next = 24;
-            break;
 
           case 20:
-            _context3.prev = 20;
+            console.log("userPreferencePosts.legnth ", userPreferencePosts.length);
+            console.log("mostViewsPosts.length ", mostViewsPosts.length);
+            console.log("editorialPosts.length ", editorialPosts.length);
+            totalPosts = [].concat((0, _toConsumableArray2["default"])(userPreferencePosts), (0, _toConsumableArray2["default"])(mostViewsPosts), (0, _toConsumableArray2["default"])(editorialPosts));
+            res.status(200).json(totalPosts);
+            _context3.next = 31;
+            break;
+
+          case 27:
+            _context3.prev = 27;
             _context3.t0 = _context3["catch"](3);
             console.log("ERROR ", _context3.t0);
             res.status(401).json({
               message: "QUERY ERROR ".concat(_context3.t0.message, " ")
             });
 
-          case 24:
+          case 31:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[3, 20]]);
+    }, _callee3, null, [[3, 27]]);
   }));
 
   return function getPostsWithCriteria(_x4, _x5) {

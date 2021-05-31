@@ -30,7 +30,7 @@ app.set("port", process.env.PORT || 3003); //delete for tiempo arg
 (0, _initialSetup.createRoles)(); //middlewares
 
 app.use((0, _cors["default"])({
-  origin: "http://localhost:".concat(app.get("port"))
+  origin: true
 }));
 app.use((0, _morgan["default"])("dev"));
 app.use(_express["default"].json());
