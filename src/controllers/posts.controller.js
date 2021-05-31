@@ -70,11 +70,10 @@ export const getPostsWithCriteria = async (req, res) => {
           {
             $or: [
               { "authors.authorId": { $in: userPreference.authors } },
-              { "authors.authorId": { $in: userPreference.authors } },
               { "tags.tagId": { $in: userPreference.tags } },
               { section: { $in: userPreference.sections } },
               { "themes.themeId": { $in: userPreference.themes } },
-              { place: { $in: userPreference.place } },
+              { place: { $in: userPreference.places } },
             ],
           },
           { postId: { $nin: ignore } },
@@ -97,16 +96,7 @@ export const getPostsWithCriteria = async (req, res) => {
       amounts.editorial +
       amounts.mostViewed -
       (mostViewsPosts.length + userPreferencePosts.length);
-    console.log(
-      "suma",
-      amounts.userPreference,
-      "+",
-      amounts.editorial,
-      "+",
-      amounts.mostViewed,
-      "-",
-      mostViewsPosts.length + userPreferencePosts.length
-    );
+
     if (editorialPostsCount > 0) {
       editorialPosts = await Post.find({
         postId: { $nin: ignore },

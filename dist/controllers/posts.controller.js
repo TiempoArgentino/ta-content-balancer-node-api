@@ -159,10 +159,6 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
                     $in: userPreference.authors
                   }
                 }, {
-                  "authors.authorId": {
-                    $in: userPreference.authors
-                  }
-                }, {
                   "tags.tagId": {
                     $in: userPreference.tags
                   }
@@ -176,7 +172,7 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
                   }
                 }, {
                   place: {
-                    $in: userPreference.place
+                    $in: userPreference.places
                   }
                 }]
               }, {
@@ -199,46 +195,45 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
             // ***********************************************
             // ***********************************************
             editorialPostsCount = amounts.userPreference + amounts.editorial + amounts.mostViewed - (mostViewsPosts.length + userPreferencePosts.length);
-            console.log("suma", amounts.userPreference, "+", amounts.editorial, "+", amounts.mostViewed, "-", mostViewsPosts.length + userPreferencePosts.length);
 
             if (!(editorialPostsCount > 0)) {
-              _context3.next = 20;
+              _context3.next = 19;
               break;
             }
 
-            _context3.next = 19;
+            _context3.next = 18;
             return _Post["default"].find({
               postId: {
                 $nin: ignore
               }
             }).limit(editorialPostsCount);
 
-          case 19:
+          case 18:
             editorialPosts = _context3.sent;
 
-          case 20:
+          case 19:
             console.log("userPreferencePosts.legnth ", userPreferencePosts.length);
             console.log("mostViewsPosts.length ", mostViewsPosts.length);
             console.log("editorialPosts.length ", editorialPosts.length);
             totalPosts = [].concat((0, _toConsumableArray2["default"])(userPreferencePosts), (0, _toConsumableArray2["default"])(mostViewsPosts), (0, _toConsumableArray2["default"])(editorialPosts));
             res.status(200).json(totalPosts);
-            _context3.next = 31;
+            _context3.next = 30;
             break;
 
-          case 27:
-            _context3.prev = 27;
+          case 26:
+            _context3.prev = 26;
             _context3.t0 = _context3["catch"](3);
             console.log("ERROR ", _context3.t0);
             res.status(401).json({
               message: "QUERY ERROR ".concat(_context3.t0.message, " ")
             });
 
-          case 31:
+          case 30:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[3, 27]]);
+    }, _callee3, null, [[3, 26]]);
   }));
 
   return function getPostsWithCriteria(_x4, _x5) {
