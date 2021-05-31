@@ -15,14 +15,35 @@ var _middlewares = require("../middlewares");
 
 var router = (0, _express.Router)();
 //POST ITEM
-router.post("/", [_middlewares.authJwt.verifyToken, _middlewares.authJwt.isAdmin], postsCtrl.createPost); //GET ALL ITEMS
+// router.post("/", [authJwt.verifyToken, authJwt.isAdmin], postsCtrl.createPost);
+router.post("/", postsCtrl.createPost); //CREATE ALL POSTS
 
-router.get("/", postsCtrl.getPosts); //GET ITEM BY ID
+router.post("/allposts", postsCtrl.createAllPosts); //GET ALL ITEMS
 
-router.get("/:postId", postsCtrl.getPostById); //PUT ITEM BY ID
+router.get("/", postsCtrl.getPosts); //GET ITEMS WITH MULTIPLE CRITERIA
 
-router.put("/:postId", _middlewares.authJwt.verifyToken, postsCtrl.updatePostById); //DELETE ITEM BY ID
+router.post("/personalized", postsCtrl.getPostsWithCriteria); //GET ITEM BY ID
 
-router["delete"]("/:postId", [_middlewares.authJwt.verifyToken, _middlewares.authJwt.isAdmin], postsCtrl.deletePostById);
+router.get("/:postId", postsCtrl.getPostById); //PUT UPDATE POST
+// router.put("/:postId", authJwt.verifyToken, postsCtrl.updatePostById);
+
+router.put("/:postId", postsCtrl.updatePostById); //DELETE ITEM BY ID
+// router.delete(
+//   "/:postId",
+//   [authJwt.verifyToken, authJwt.isAdmin],
+//   postsCtrl.deletePostById
+// );
+
+router["delete"]("/:postId", postsCtrl.deletePostById); //DELETE TERMS BY ID
+
+router.put("/terms/:id", postsCtrl.deleteTermsById); //UPDATE AUTHOR FROM ALL POSTS
+
+router.put("/updateauthor/:id", postsCtrl.updateAuthorFromAllPosts); // router.delete(
+//   "/",
+//   [authJwt.verifyToken, authJwt.isAdmin],
+//   postsCtrl.deleteAllPosts
+// );
+
+router["delete"]("/", postsCtrl.deleteAllPosts);
 var _default = router;
 exports["default"] = _default;

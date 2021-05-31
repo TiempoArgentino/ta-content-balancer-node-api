@@ -7,6 +7,8 @@ import postsRoutes from "./routes/posts.routes";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/users.routes";
 
+import { clientApiKeyValidation } from "./middlewares/authUtils";
+
 const app = express();
 
 //settings
@@ -18,7 +20,7 @@ createRoles();
 //middlewares
 app.use(
   cors({
-    origin: `http://localhost:${app.get("port")}`,
+    origin: true,
   })
 );
 app.use(morgan("dev"));
@@ -29,6 +31,10 @@ app.get("/", (req, res) => {
     message: "Index!",
   });
 });
+
+//app.use("/api/loggin", postsRoutes); return api_key
+
+// app.use(clientApiKeyValidation);
 app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

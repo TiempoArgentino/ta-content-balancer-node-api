@@ -3,32 +3,42 @@ import { Schema, model } from "mongoose";
 const postSchema = new Schema(
   {
     // expire_at: { type: Date, default: Date.now, expires: 60 },
-    expireAt: { type: Date, default: Date.now, index: { expires: "1d" } },
+    expireAt: { type: Date, default: Date.now, index: { expires: "20d" } },
 
     postId: { type: Number, required: true, trim: true, unique: true },
 
-    title: { type: String, required: true, lowercase: true, trim: true },
+    place: { type: Number, default: null },
 
-    url: { type: String, required: true, lowercase: true, trim: true },
+    themes: [{ themeId: Number }],
 
-    headband: { type: String, required: true, lowercase: true, trim: true },
+    title: { type: String, trim: true, default: null },
 
-    imgURL: { type: String, lowercase: true },
+    url: {
+      type: String,
+      required: true,
+      default: null,
+      lowercase: true,
+      trim: true,
+    },
 
-    isOpinion: { type: Boolean, lowercase: true, required: true },
+    headband: { type: String, trim: true, default: null },
 
-    section: Number,
+    imgURL: { type: String, lowercase: true, default: null },
+
+    isOpinion: { type: Boolean, default: null },
+
+    section: { type: Number, required: true, default: null },
 
     authors: [
       {
-        authorId: Number,
-        authorName: { type: String, lowercase: true },
-        authorUrl: { type: String, lowercase: true },
-        authorImage: { type: String, lowercase: true },
+        authorId: { type: Number, required: true },
+        authorName: { type: String, required: true },
+        authorUrl: { type: String, required: true, lowercase: true },
+        authorImg: { type: String, lowercase: true },
       },
     ],
 
-    tags: [{ tagsId: Number }],
+    tags: [{ tagId: Number }],
 
     themes: [{ themeId: Number }],
 
