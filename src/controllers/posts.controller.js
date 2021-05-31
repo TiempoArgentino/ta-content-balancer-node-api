@@ -39,61 +39,84 @@ export const createAllPosts = (req, res) => {
 export const getPostsWithCriteria = async (req, res) => {
   const { amounts, userPreference, mostViewed, ignore } = req.body;
   console.log(req.body);
-  let totalPosts = [];
+  let totalPosts = [],
+    mostViewsPosts = [],
+    userPreferencePosts = [],
+    editorialPosts = [];
+
   try {
     // ***********************************************
     // ***********************************************
     //mostViews posts find
     // ***********************************************
     // ***********************************************
-    const mostViewsPosts = await Post.find({
-      postId: { $in: mostViewed },
-    });
-    mostViewsPosts.map((post) => {
-      ignore.push(post.postId);
-    });
+    if (amounts.mostViewed > 0) {
+      mostViewsPosts = await Post.find({
+        postId: { $in: mostViewed },
+      }).limit(amounts.mostViewed);
 
+      mostViewsPosts.map((post) => {
+        ignore.push(post.postId);
+      });
+    }
     // ***********************************************
     // ***********************************************
     //userPreference posts find
     // ***********************************************
     // ***********************************************
-    const userPreferencePosts = await Post.find({
-      $and: [
-        {
-          $or: [
-            { "authors.authorId": { $in: userPreference.authors } },
-            { "authors.authorId": { $in: userPreference.authors } },
-            { "tags.tagId": { $in: userPreference.tags } },
-            { section: { $in: userPreference.sections } },
-            { "themes.themeId": { $in: userPreference.themes } },
-            { place: { $in: userPreference.place } },
-          ],
-        },
-        { postId: { $nin: ignore } },
-      ],
-    });
+    if (amounts.userPreference > 0) {
+      userPreferencePosts = await Post.find({
+        $and: [
+          {
+            $or: [
+              { "authors.authorId": { $in: userPreference.authors } },
+              { "authors.authorId": { $in: userPreference.authors } },
+              { "tags.tagId": { $in: userPreference.tags } },
+              { section: { $in: userPreference.sections } },
+              { "themes.themeId": { $in: userPreference.themes } },
+              { place: { $in: userPreference.place } },
+            ],
+          },
+          { postId: { $nin: ignore } },
+        ],
+      }).limit(amounts.userPreference);
 
-    userPreferencePosts.map((post) => {
-      ignore.push(post.postId);
-    });
+      userPreferencePosts.map((post) => {
+        ignore.push(post.postId);
+      });
+    }
 
     // ***********************************************
     // ***********************************************
     //editorial posts find
     // ***********************************************
     // ***********************************************
-    let editorialPostsCount =
+
+    const editorialPostsCount =
       amounts.userPreference +
       amounts.editorial +
       amounts.mostViewed -
       (mostViewsPosts.length + userPreferencePosts.length);
-
-    const editorialPosts = await Post.find({ postId: { $nin: ignore } }).limit(
-      editorialPostsCount
+    console.log(
+      "suma",
+      amounts.userPreference,
+      "+",
+      amounts.editorial,
+      "+",
+      amounts.mostViewed,
+      "-",
+      mostViewsPosts.length + userPreferencePosts.length
     );
-
+    if (editorialPostsCount > 0) {
+      editorialPosts = await Post.find({
+        postId: { $nin: ignore },
+      }).limit(editorialPostsCount);
+    }
+    console.log("userPreferencePosts.legnth ", userPreferencePosts.length);
+    console.log("mostViewsPosts.length ", mostViewsPosts.length);
+    console.log("editorialPosts.length ", editorialPosts.length);
     totalPosts = [...userPreferencePosts, ...mostViewsPosts, ...editorialPosts];
+
     res.status(200).json(totalPosts);
   } catch (error) {
     console.log("ERROR ", error);

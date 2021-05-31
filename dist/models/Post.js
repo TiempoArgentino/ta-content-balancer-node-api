@@ -19,7 +19,7 @@ var postSchema = new _mongoose.Schema((_Schema = {
     type: Date,
     "default": Date.now,
     index: {
-      expires: "1d"
+      expires: "20d"
     }
   },
   postId: {
