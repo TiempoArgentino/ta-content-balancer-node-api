@@ -14,7 +14,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build container dev
       run: docker build -t ta/content-balancer:dev .
-      run: docker build -t packnow/api:${GITHUB_REF##*/} .
       if: contains('refs/heads/dev',github.ref)
     - name: Build container prod
       run: docker build ta/content-balancer:prod .
