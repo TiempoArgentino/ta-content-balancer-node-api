@@ -16,7 +16,7 @@ jobs:
       run: docker build -t ta/content-balancer:dev .
       if: contains('refs/heads/dev',github.ref)
     - name: Build container prod
-      run: docker build ta/content-balancer:prod .
+      run: docker build -t ta/content-balancer:prod .
       if: contains('refs/heads/master',github.ref)
     - name: Reload containers
       run: docker-compose -f /docker/ta/docker-compose.yml up -d
