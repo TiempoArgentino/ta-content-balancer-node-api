@@ -52,7 +52,7 @@ export const getPostsWithCriteria = async (req, res) => {
     // ***********************************************
     if (amounts.mostViewed > 0) {
       mostViewsPosts = await Post.find({
-        postId: { $in: mostViewed },
+        $and: [{ postId: { $in: mostViewed } }, { postId: { $nin: ignore } }],
       }).limit(amounts.mostViewed);
 
       mostViewsPosts.map((post) => {

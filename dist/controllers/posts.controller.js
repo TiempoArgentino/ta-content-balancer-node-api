@@ -134,9 +134,15 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
 
             _context3.next = 7;
             return _Post["default"].find({
-              postId: {
-                $in: mostViewed
-              }
+              $and: [{
+                postId: {
+                  $in: mostViewed
+                }
+              }, {
+                postId: {
+                  $nin: ignore
+                }
+              }]
             }).limit(amounts.mostViewed);
 
           case 7:
