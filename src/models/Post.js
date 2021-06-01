@@ -17,13 +17,12 @@ const postSchema = new Schema(
       type: String,
       required: true,
       default: null,
-      lowercase: true,
       trim: true,
     },
 
     headband: { type: String, trim: true, default: null },
 
-    imgURL: { type: String, lowercase: true, default: null },
+    imgURL: { type: String, default: null },
 
     isOpinion: { type: Boolean, default: null },
 
@@ -33,8 +32,8 @@ const postSchema = new Schema(
       {
         authorId: { type: Number, required: true },
         authorName: { type: String, required: true },
-        authorUrl: { type: String, required: true, lowercase: true },
-        authorImg: { type: String, lowercase: true },
+        authorUrl: { type: String, required: true },
+        authorImg: { type: String },
       },
     ],
 
