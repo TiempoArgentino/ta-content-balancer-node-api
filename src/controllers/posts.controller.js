@@ -165,7 +165,7 @@ export const deleteTermsById = async (req, res) => {
 
   const idFields = {
     authors: "authorId",
-    tags: "tagsId",
+    tags: "tagId",
     places: "placeId",
     themes: "themeId",
   };
