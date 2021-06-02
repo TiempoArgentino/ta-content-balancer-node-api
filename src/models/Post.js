@@ -3,36 +3,41 @@ import { Schema, model } from "mongoose";
 const postSchema = new Schema(
   {
     // expire_at: { type: Date, default: Date.now, expires: 60 },
-    expireAt: { type: Date, default: Date.now, index: { expires: "1d" } },
+    expireAt: { type: Date, default: Date.now, index: { expires: "20d" } },
 
     postId: { type: Number, required: true, trim: true, unique: true },
 
-    place: { type: Number },
+    place: { type: Number, default: null },
 
     themes: [{ themeId: Number }],
 
-    title: { type: String, trim: true },
+    title: { type: String, trim: true, default: null },
 
-    url: { type: String, required: true, lowercase: true, trim: true },
+    url: {
+      type: String,
+      required: true,
+      default: null,
+      trim: true,
+    },
 
-    headband: { type: String, trim: true },
+    headband: { type: String, trim: true, default: null },
 
-    imgURL: { type: String, lowercase: true },
+    imgURL: { type: String, default: null },
 
-    isOpinion: { type: Boolean },
+    isOpinion: { type: Boolean, default: null },
 
-    section: { type: Number, required: true },
+    section: { type: Number, required: true, default: null },
 
     authors: [
       {
         authorId: { type: Number, required: true },
         authorName: { type: String, required: true },
-        authorUrl: { type: String, required: true, lowercase: true },
-        authorImage: { type: String, lowercase: true },
+        authorUrl: { type: String, required: true },
+        authorImg: { type: String },
       },
     ],
 
-    tags: [{ tagsId: Number }],
+    tags: [{ tagId: Number }],
 
     themes: [{ themeId: Number }],
 

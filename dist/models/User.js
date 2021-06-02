@@ -28,6 +28,9 @@ var userSchema = new _mongoose.Schema({
     type: String,
     unique: true
   },
+  api_key: {
+    type: String
+  },
   roles: [{
     ref: "Role",
     type: _mongoose.Schema.Types.ObjectId

@@ -3,5 +3,5 @@ config();
 
 export default {
   SECRET: "rest-api-auth",
-  mongodbURL: process.env.MONGO_URI || "mongodb://localhost/postsapi",
+  mongodbURL: process.env.MONGO_URI || "mongodb://localhost/exampledb",
 };
