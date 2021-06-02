@@ -18,28 +18,9 @@ TA CRUD API
 
     npm start
 
-## Create user and api_key
+## Create .env with api_key
 
-### Request
-
-`POST /auth/signup`
-
-    Headers:
-    Accept: 'application/json'
-
-    Body:
-    {
-    "username": "username",
-    "email": "email",
-    "password": "password",
-    "api_key": "api_key",
-    "roles":["user","admin","moderator"]
-    }
-
-### Response
-
-    Status: 200 OK
-    Content-Type: application/json
+    AUTH_API_KEY = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
 
 # REST API
 
@@ -99,60 +80,25 @@ TA CRUD API
 
 `POST /api/posts/`
 
+All params are id's of wp terms
+
     Headers:
     Accept: 'application/json'
     api_key: "api_key",
 
     Body example:
     {
-    "_id": "60afc5c7bfca3109c46089db",
     "postId": 3,
-    "title": "bascket",
-    "url": "wwww.bascket.com",
-    "headband": "bascket",
-    "imgURL": "https://cdn.shopify.com/s/files/1/0047/4673/9758/products/hp_3px93la-abm_3_1200x1200.jpg?v=1568824462",
-    "isOpinion": false,
+    "title": "title",
+    "url": "wwww.title.com",
+    "headband": "something",
+    "imgURL": "img url",
+    "isOpinion": false/true,
     "section": 2,
-    "authors": [
-        {
-            "_id": "60afc5c7bfca3109c46089dc",
-            "authorId": 3,
-            "authorName": "first author",
-            "authorUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:and9gcttue0qzcbncapsxmcplhzoab4a1sux6xxpow&usqp=cau"
-        },
-        {
-            "_id": "60afc5c7bfca3109c46089dd",
-            "authorId": 4,
-            "authorName": "second author",
-            "authorUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:and9gcttue0qzcbncapsxmcplhzoab4a1sux6xxpow&usqp=cau"
-        }
-    ],
-    "tags": [
-        {
-            "_id": "60afc5c7bfca3109c46089de",
-            "tagsId": 1
-        },
-        {
-            "_id": "60afc5c7bfca3109c46089df",
-            "tagsId": 2
-        }
-    ],
-    "themes": [
-        {
-            "_id": "60afc5c7bfca3109c46089e0",
-            "themeId": 3
-        }
-    ],
-    "places": [
-        {
-            "_id": "60afc5c7bfca3109c46089e1",
-            "placeId": 4
-        }
-    ],
-    "expireAt": "2021-05-27T16:16:07.038Z",
-    "createdAt": "2021-05-27T16:16:07.044Z",
-    "updatedAt": "2021-05-27T16:16:07.044Z",
-    "__v": 0
+    "authors": [2,3,4],
+    "tags": [100,101,102],
+    "themes": [13],
+    "places": [3]
     }
 
 ### Response
@@ -179,7 +125,7 @@ TA CRUD API
 
     Content:[{post 1},..., {post N}]
 
-## Modify post
+## Update post
 
 ### Request
 
