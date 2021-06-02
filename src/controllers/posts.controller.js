@@ -107,7 +107,15 @@ export const getPostsWithCriteria = async (req, res) => {
     console.log("editorialPosts.length ", editorialPosts.length);
     totalPosts = [...userPreferencePosts, ...mostViewsPosts, ...editorialPosts];
 
-    res.status(200).json(totalPosts);
+    res
+      .status(200)
+      .set({
+        "Content-Type": "application/json",
+        userPreferencePostsLegnth: userPreferencePosts.length,
+        mostViewsPostsLength: mostViewsPosts.length,
+        editorialPostsLength: editorialPosts.length,
+      })
+      .json(totalPosts);
   } catch (error) {
     console.log("ERROR ", error);
     res.status(401).json({

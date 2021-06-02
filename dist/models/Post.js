@@ -44,7 +44,6 @@ var postSchema = new _mongoose.Schema((_Schema = {
     type: String,
     required: true,
     "default": null,
-    lowercase: true,
     trim: true
   },
   headband: {
@@ -54,7 +53,6 @@ var postSchema = new _mongoose.Schema((_Schema = {
   },
   imgURL: {
     type: String,
-    lowercase: true,
     "default": null
   },
   isOpinion: {
@@ -77,12 +75,10 @@ var postSchema = new _mongoose.Schema((_Schema = {
     },
     authorUrl: {
       type: String,
-      required: true,
-      lowercase: true
+      required: true
     },
     authorImg: {
-      type: String,
-      lowercase: true
+      type: String
     }
   }],
   tags: [{
