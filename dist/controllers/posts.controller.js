@@ -224,7 +224,12 @@ var getPostsWithCriteria = /*#__PURE__*/function () {
             console.log("mostViewsPosts.length ", mostViewsPosts.length);
             console.log("editorialPosts.length ", editorialPosts.length);
             totalPosts = [].concat((0, _toConsumableArray2["default"])(userPreferencePosts), (0, _toConsumableArray2["default"])(mostViewsPosts), (0, _toConsumableArray2["default"])(editorialPosts));
-            res.status(200).json(totalPosts);
+            res.status(200).set({
+              "Content-Type": "application/json",
+              userPreferencePostsLegnth: userPreferencePosts.length,
+              mostViewsPostsLength: mostViewsPosts.length,
+              editorialPostsLength: editorialPosts.length
+            }).json(totalPosts);
             _context3.next = 30;
             break;
 
