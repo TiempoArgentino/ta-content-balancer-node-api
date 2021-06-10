@@ -41,6 +41,8 @@ TA CRUD API
 
     Content:[posts]
 
+## Personalized posts request
+
 ### Request
 
 `GET /api/posts/personalized`
@@ -67,6 +69,8 @@ TA CRUD API
     "ignore": [1,2,3]
     }
 
+#### Note: Where the numbers inside [] are id's corresponding to the wordpress terms
+
 ### Response
 
     Status: 200 OK
@@ -74,7 +78,7 @@ TA CRUD API
 
     Content:[posts]
 
-## Create posts
+## Create post
 
 ### Request
 
@@ -90,7 +94,7 @@ All params are id's of wp terms
     {
     "postId": 3,
     "title": "title",
-    "url": "wwww.title.com",
+    "url": "post wp url",
     "headband": "something",
     "imgURL": "img url",
     "isOpinion": false/true,
@@ -101,6 +105,8 @@ All params are id's of wp terms
     "places": [3]
     }
 
+#### Note: Where the numbers inside [] are id's corresponding to the wordpress terms. postId is the post id in wordpress and the section is the id of wordpress section
+
 ### Response
 
     Status: 201 OK
@@ -108,7 +114,7 @@ All params are id's of wp terms
 
     Content:[posts]
 
-## Create posts
+## Create many posts
 
 ### Request
 
