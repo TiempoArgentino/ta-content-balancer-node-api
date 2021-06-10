@@ -2,7 +2,7 @@
 
 This CRUD Api stores wordpress articles to later be consumed. It aims to release responsibilities to wordpress when it comes to consulting for personalized content.
 
-To be able to use the api follow the following steps
+To be able to use the api follow the following steps.
 
 ## Install
 
@@ -26,7 +26,7 @@ To be able to use the api follow the following steps
 
 # REST API
 
-Below are the methods and how to use them
+Below are the methods and how to use them.
 
 ## List of posts
 
