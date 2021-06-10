@@ -20,7 +20,8 @@ var clientApiKeyValidation = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            clientApiKey = req.get("api_key");
+            // let clientApiKey = req.get("api_key");
+            clientApiKey = req.headers["api_key"];
 
             if (clientApiKey) {
               _context.next = 3;

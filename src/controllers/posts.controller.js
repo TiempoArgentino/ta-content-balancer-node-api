@@ -20,18 +20,18 @@ export const createPost = async (req, res) => {
 export const createAllPosts = (req, res) => {
   const allAPostsObject = req.body;
   const savedPosts = [];
-  // try {
-  allAPostsObject.map(async (post) => {
-    const newPost = new Post(post);
-    const postSave = await newPost.save();
-    savedPosts.push(postSave);
-  });
-  res.status(201).json(savedPosts);
-  // } catch (error) {
-  //   res.status(401).json({
-  //     message: `QUERY ERROR ${error.message} `,
-  //   });
-  // }
+  try {
+    allAPostsObject.map(async (post) => {
+      const newPost = new Post(post);
+      const postSave = await newPost.save();
+      savedPosts.push(postSave);
+    });
+    res.status(201).json(savedPosts);
+  } catch (error) {
+    res.status(401).json({
+      message: `QUERY ERROR ${error.message} `,
+    });
+  }
 };
 /* *************************************************** */
 /* *************************************************** */

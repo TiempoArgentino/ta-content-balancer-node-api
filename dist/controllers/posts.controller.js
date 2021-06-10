@@ -72,40 +72,42 @@ exports.createPost = createPost;
 
 var createAllPosts = function createAllPosts(req, res) {
   var allAPostsObject = req.body;
-  var savedPosts = []; // try {
+  var savedPosts = [];
 
-  allAPostsObject.map( /*#__PURE__*/function () {
-    var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(post) {
-      var newPost, postSave;
-      return _regenerator["default"].wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              newPost = new _Post["default"](post);
-              _context2.next = 3;
-              return newPost.save();
+  try {
+    allAPostsObject.map( /*#__PURE__*/function () {
+      var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(post) {
+        var newPost, postSave;
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                newPost = new _Post["default"](post);
+                _context2.next = 3;
+                return newPost.save();
 
-            case 3:
-              postSave = _context2.sent;
-              savedPosts.push(postSave);
+              case 3:
+                postSave = _context2.sent;
+                savedPosts.push(postSave);
 
-            case 5:
-            case "end":
-              return _context2.stop();
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
           }
-        }
-      }, _callee2);
-    }));
+        }, _callee2);
+      }));
 
-    return function (_x3) {
-      return _ref2.apply(this, arguments);
-    };
-  }());
-  res.status(201).json(savedPosts); // } catch (error) {
-  //   res.status(401).json({
-  //     message: `QUERY ERROR ${error.message} `,
-  //   });
-  // }
+      return function (_x3) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+    res.status(201).json(savedPosts);
+  } catch (error) {
+    res.status(401).json({
+      message: "QUERY ERROR ".concat(error.message, " ")
+    });
+  }
 };
 /* *************************************************** */
 
