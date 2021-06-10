@@ -1,6 +1,8 @@
-# REST API example application
+# CONTENT BALANCER REST API
 
-TA CRUD API
+This CRUD Api stores wordpress articles to later be consumed. It aims to release responsibilities to wordpress when it comes to consulting for personalized content.
+
+To be able to use the api follow the following steps
 
 ## Install
 
@@ -23,6 +25,8 @@ TA CRUD API
     AUTH_API_KEY = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
 
 # REST API
+
+Below are the methods and how to use them
 
 ## List of posts
 
