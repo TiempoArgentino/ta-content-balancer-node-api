@@ -1,8 +1,16 @@
 # CONTENT BALANCER REST API
 
-This CRUD Api stores wordpress articles to later be consumed. It aims to release responsibilities to wordpress when it comes to consulting for personalized content.
+EN
+
+This CRUD API stores wordpress articles to later be consumed. It aims to release responsibilities to wordpress when it comes to consulting for personalized content.
 
 To be able to use the api follow the following steps.
+
+ES
+
+Esta CRUD API almacena artículos de wordpress para luego ser consumidos. Su objetivo es liberar responsabilidades a wordpress en lo que respecta a consultas de contenido personalizado.
+
+Para poder utilizar la API, siga los siguientes pasos.
 
 ## Install
 
@@ -26,7 +34,13 @@ To be able to use the api follow the following steps.
 
 # REST API
 
+EN
+
 Below are the methods and how to use them.
+
+ES
+
+A continuación se muestran los métodos y cómo utilizarlos.
 
 ## List of posts
 
@@ -73,7 +87,13 @@ Below are the methods and how to use them.
     "ignore": [1,2,3]
     }
 
+### EN
+
 #### Note: Where the numbers inside [] are id's corresponding to the wordpress terms
+
+### ES
+
+#### Nota: donde los números dentro de [] son id's correspondientes a los términos de wordpress
 
 ### Response
 
@@ -109,7 +129,13 @@ All params are id's of wp terms
     "places": [3]
     }
 
+### EN
+
 #### Note: Where the numbers inside [] are id's corresponding to the wordpress terms. postId is the post id in wordpress and the section is the id of wordpress section
+
+### ES
+
+#### Nota: donde los números dentro de [] son ​​los id's correspondientes a los términos de wordpress. postId es el id de la publicación en wordpress y la sección es el id de la sección de wordpress
 
 ### Response
 
